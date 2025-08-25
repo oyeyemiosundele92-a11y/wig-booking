@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wig Booking Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    padding: 20px;
+  }
+  .container {
+    max-width: 500px;
+    margin: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  h2 {
+    text-align: center;
+  }
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  input, textarea, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  button {
+    background: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  button:hover {
+    background: #45a049;
+  }
+  .dropdown-checkbox {
+    position: relative;
+  }
+  .dropdown-checkbox .select-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    background: #fff;
+  }
+  .dropdown-checkbox .checkboxes {
+    display: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    z-index: 1;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  .dropdown-checkbox .checkboxes label {
+    display: block;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .dropdown-checkbox .checkboxes label:hover {
+    background: #f1f1f1;
+  }
+  .social-buttons {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .social-buttons a {
+    display: inline-block;
+    margin: 5px 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  .whatsapp { background: #25D366; }
+  .instagram { background: #C13584; }
+  .tiktok { background: #000000; }
+  .social-buttons a:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Wig Booking Form</h2>
+  <form action="https://formsubmit.co/oyeyemiosundele92@gmail.com" method="POST">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you">
+
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="Your full name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="Your email" required>
+
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" name="phone" placeholder="Your phone number" required>
+
+    <label for="service">Service Type(s)</label>
+    <div class="dropdown-checkbox">
+      <div class="select-box" onclick="toggleCheckboxes()">Select Services</div>
+      <div class="checkboxes">
+        <label><input type="checkbox" name="service[]" value="Wig Making"> Wig Making</label>
+        <label><input type="checkbox" name="service[]" value="Wig Revamp"> Wig Revamp</label>
+        <label><input type="checkbox" name="service[]" value="Wig Colouration"> Wig Colouration</label>
+        <label><input type="checkbox" name="service[]" value="Lace Repair"> Lace Repair</label>
+      </div>
+    </div>
+
+    <label for="date">Expected Delivery Date</label>
+    <input type="date" id="date" name="expected_delivery_date" required>
+
+    <label for="message">Message</label>
+    <textarea id="message" name="message" placeholder="Tell us about your needs" rows="4"></textarea>
+
+    <button type="submit">📩 Book Now</button>
+  </form>
+
+  <!-- Social Media Buttons -->
+  <div class="social-buttons">
+    <!-- WhatsApp -->
+    <a class="whatsapp" href="https://wa.me/447459826515?text=Hi%20I%20would%20like%20to%20book%20a%20wig%20service" target="_blank">💬 WhatsApp</a>
+
+    <!-- Instagram -->
+    <a class="instagram" href="https://ig.me/m/Gremi_hairline" target="_blank">📸 Instagram</a>
+
+    <!-- TikTok -->
+    <a class="tiktok" href="https://www.tiktok.com/@Gremi_hairline" target="_blank">🎵 TikTok</a>
+  </div>
+</div>
+
+<script>
+function toggleCheckboxes() {
+  const checkboxes = document.querySelector('.dropdown-checkbox .checkboxes');
+  checkboxes.style.display = checkboxes.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+</body>
+</html>
