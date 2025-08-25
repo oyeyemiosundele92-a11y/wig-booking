@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You - Booking Confirmed</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  .container {
+    max-width: 500px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  .checkmark {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #4CAF50;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: scaleUp 0.5s ease;
+  }
+  .checkmark::after {
+    content: '✓';
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+  }
+  h1 {
+    color: #4CAF50;
+    margin-bottom: 10px;
+  }
+  p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 10px 5px;
+  }
+  .btn:hover {
+    background: #45a049;
+  }
+  .social-buttons {
+    margin-top: 30px;
+  }
+  .social-buttons a {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  .whatsapp { background: #25D366; }
+  .instagram { background: #C13584; }
+  .tiktok { background: #000000; }
+  .social-buttons a:hover { opacity: 0.8; }
+  
+  @keyframes scaleUp {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="checkmark"></div>
+  <h1>Thank You!</h1>
+  <p>Your booking has been successfully submitted. We have received your request and will contact you within 24 hours to discuss your booking.</p>
+  <p>If you have any urgent questions, please don't hesitate to contact us through any of the channels below.</p>
+  
+  <a href="index.html" class="btn">← Back to Form</a>
+  
+  <div class="social-buttons">
+    <h3>Connect With Us</h3>
+    <a class="whatsapp" href="https://wa.me/447459826515?text=Hi%20I%20just%20submitted%20a%20booking" target="_blank">💬 WhatsApp</a>
+    <a class="instagram" href="https://ig.me/m/Gremi_hairline" target="_blank">📸 Instagram</a>
+    <a class="tiktok" href="https://www.tiktok.com/@gremi_hairline" target="_blank">🎵 TikTok</a>
+  </div>
+</div>
+</body>
+</html>
