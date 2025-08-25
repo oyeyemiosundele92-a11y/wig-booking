@@ -5,11 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wig Booking Form</title>
 <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
   body {
     font-family: Arial, sans-serif;
     background: #f9f9f9;
     padding: 20px;
   }
+  
   .container {
     max-width: 500px;
     margin: auto;
@@ -18,70 +25,107 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
+  
   h2 {
     text-align: center;
+    margin-bottom: 20px;
   }
+  
   label {
     display: block;
     margin-top: 15px;
     font-weight: bold;
   }
-  input, textarea, select, button {
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  textarea {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    box-sizing: border-box;
+    font-family: Arial, sans-serif;
   }
+  
   button {
+    width: 100%;
     background: #4CAF50;
     color: white;
     font-size: 16px;
+    padding: 12px;
     cursor: pointer;
     margin-top: 20px;
+    border: none;
+    border-radius: 5px;
   }
+  
   button:hover {
     background: #45a049;
   }
-  .dropdown-checkbox {
+  
+  /* Custom Dropdown Styles */
+  .custom-dropdown {
     position: relative;
-  }
-  .dropdown-checkbox .select-box {
-    border: 1px solid #ccc;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    background: #fff;
-    user-select: none;
-  }
-  .dropdown-checkbox .checkboxes {
-    display: none;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    position: absolute;
-    width: 100%;
-    background: #fff;
-    z-index: 1;
-    max-height: 150px;
-    overflow-y: auto;
     margin-top: 5px;
   }
-  .dropdown-checkbox .checkboxes label {
-    display: block;
-    padding: 8px 10px;
+  
+  .dropdown-header {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
     cursor: pointer;
-    margin: 0;
-    font-weight: normal;
+    user-select: none;
   }
-  .dropdown-checkbox .checkboxes label:hover {
+  
+  .dropdown-header:hover {
+    background: #f9f9f9;
+  }
+  
+  .dropdown-header.active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 10;
+  }
+  
+  .dropdown-list.show {
+    display: block;
+  }
+  
+  .dropdown-option {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdown-option:hover {
     background: #f1f1f1;
   }
-  .dropdown-checkbox input[type="checkbox"] {
-    width: auto;
-    margin-right: 8px;
+  
+  .dropdown-option input[type="checkbox"] {
+    margin-right: 10px;
+    cursor: pointer;
   }
-  .selected-services {
+  
+  .selected-display {
     margin-top: 10px;
     padding: 10px;
     background: #e8f5e9;
@@ -90,43 +134,47 @@
     font-size: 14px;
     display: none;
   }
-  .selected-services.show {
+  
+  .selected-display.show {
     display: block;
   }
-  .selected-services strong {
+  
+  .selected-display strong {
     display: block;
     margin-bottom: 5px;
   }
+  
+  /* Social Media Buttons */
   .social-buttons {
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
   }
+  
+  .social-buttons h3 {
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
   .social-buttons a {
     display: inline-block;
-    margin: 5px 10px;
+    margin: 5px;
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
     color: white;
     font-weight: bold;
   }
+  
   .whatsapp { background: #25D366; }
   .instagram { background: #C13584; }
   .tiktok { background: #000000; }
-  .social-buttons a:hover { opacity: 0.8; }
   
-  /* Success message styling */
-  .success-message {
-    display: none;
-    background: #4CAF50;
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  .success-message.show {
-    display: block;
+  .social-buttons a:hover { 
+    opacity: 0.85;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
   }
 </style>
 </head>
@@ -134,103 +182,128 @@
 <div class="container">
   <h2>Wig Booking Form</h2>
   
-  <!-- Success Message (hidden by default) -->
-  <div id="successMessage" class="success-message">
-    Thank you for your booking! We'll contact you soon.
-  </div>
-  
   <form action="https://formsubmit.co/oyeyemiosundele92@gmail.com" method="POST">
-    <!-- Hidden fields for FormSubmit configuration -->
+    <!-- FormSubmit Configuration -->
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_next" value="https://oyeyemiosundele92-a11y.github.io/wig-booking/thankyou.html">
     <input type="hidden" name="_subject" value="New Wig Booking Request!">
-    <input type="hidden" name="_autoresponse" value="Thank you for your booking! We have received your request and will get back to you within 24 hours.">
+    <input type="hidden" name="_autoresponse" value="Thank you for your booking! We have received your request and will contact you within 24 hours to discuss your booking.">
+    <input type="hidden" name="_template" value="table">
 
     <label for="name">Full Name</label>
-    <input type="text" id="name" name="name" placeholder="Your full name" required>
+    <input type="text" id="name" name="Full_Name" placeholder="Enter your full name" required>
 
     <label for="email">Email</label>
-    <input type="email" id="email" name="email" placeholder="Your email" required>
+    <input type="email" id="email" name="Email" placeholder="Enter your email address" required>
 
     <label for="phone">Phone Number</label>
-    <input type="text" id="phone" name="phone" placeholder="Your phone number" required>
+    <input type="text" id="phone" name="Phone_Number" placeholder="Enter your phone number" required>
 
-    <label for="service">Service Type(s)</label>
-    <div class="dropdown-checkbox">
-      <div class="select-box" id="selectBox" onclick="toggleCheckboxes()">Select Services</div>
-      <div class="checkboxes" id="checkboxes">
-        <label><input type="checkbox" name="service" value="Wig Making" onchange="updateSelectedServices()"> Wig Making</label>
-        <label><input type="checkbox" name="service" value="Wig Revamp" onchange="updateSelectedServices()"> Wig Revamp</label>
-        <label><input type="checkbox" name="service" value="Wig Colouration" onchange="updateSelectedServices()"> Wig Colouration</label>
-        <label><input type="checkbox" name="service" value="Lace Repair" onchange="updateSelectedServices()"> Lace Repair</label>
+    <label>Service Type(s)</label>
+    <div class="custom-dropdown">
+      <div class="dropdown-header" id="dropdownHeader">
+        Select Services
+      </div>
+      <div class="dropdown-list" id="dropdownList">
+        <div class="dropdown-option">
+          <input type="checkbox" id="wigMaking" name="Services" value="Wig Making">
+          <label for="wigMaking">Wig Making</label>
+        </div>
+        <div class="dropdown-option">
+          <input type="checkbox" id="wigRevamp" name="Services" value="Wig Revamp">
+          <label for="wigRevamp">Wig Revamp</label>
+        </div>
+        <div class="dropdown-option">
+          <input type="checkbox" id="wigColour" name="Services" value="Wig Colouration">
+          <label for="wigColour">Wig Colouration</label>
+        </div>
+        <div class="dropdown-option">
+          <input type="checkbox" id="laceRepair" name="Services" value="Lace Repair">
+          <label for="laceRepair">Lace Repair</label>
+        </div>
       </div>
     </div>
-    <!-- This div shows selected services -->
-    <div id="selectedServices" class="selected-services">
+    
+    <div class="selected-display" id="selectedDisplay">
       <strong>Selected Services:</strong>
-      <span id="servicesList"></span>
+      <span id="selectedText">None selected</span>
     </div>
 
     <label for="date">Expected Delivery Date</label>
-    <input type="date" id="date" name="expected_delivery_date" required>
+    <input type="date" id="date" name="Expected_Delivery_Date" required>
 
-    <label for="message">Message</label>
-    <textarea id="message" name="message" placeholder="Tell us about your needs" rows="4"></textarea>
+    <label for="message">Additional Information</label>
+    <textarea id="message" name="Additional_Information" placeholder="Tell us about your specific needs or requirements" rows="4"></textarea>
 
     <button type="submit">📩 Book Now</button>
   </form>
 
-  <!-- Social Media Buttons -->
+  <!-- Social Media Links -->
   <div class="social-buttons">
-    <a class="whatsapp" href="https://wa.me/447459826515?text=Hi%20I%20would%20like%20to%20book%20a%20wig%20service" target="_blank">💬 WhatsApp</a>
-    <a class="instagram" href="https://ig.me/m/Gremi_hairline" target="_blank">📸 Instagram</a>
-    <a class="tiktok" href="https://www.tiktok.com/@gremi_hairline" target="_blank">🎵 TikTok</a>
+    <h3>Connect With Us</h3>
+    <a href="https://wa.me/447459826515?text=Hi%20I%20would%20like%20to%20book%20a%20wig%20service" 
+       target="_blank" class="whatsapp">💬 WhatsApp</a>
+    <a href="https://instagram.com/gremi_hairline" 
+       target="_blank" class="instagram">📸 Instagram</a>
+    <a href="https://www.tiktok.com/@gremi_hairline" 
+       target="_blank" class="tiktok">🎵 TikTok</a>
   </div>
 </div>
 
 <script>
-function toggleCheckboxes() {
-  const checkboxes = document.getElementById('checkboxes');
-  checkboxes.style.display = checkboxes.style.display === 'block' ? 'none' : 'block';
-}
+// Dropdown functionality
+const dropdownHeader = document.getElementById('dropdownHeader');
+const dropdownList = document.getElementById('dropdownList');
+const checkboxes = document.querySelectorAll('.dropdown-option input[type="checkbox"]');
+const selectedDisplay = document.getElementById('selectedDisplay');
+const selectedText = document.getElementById('selectedText');
 
-function updateSelectedServices() {
-  const checkboxes = document.querySelectorAll('input[name="service"]:checked');
-  const selectedDiv = document.getElementById('selectedServices');
-  const servicesList = document.getElementById('servicesList');
-  const selectBox = document.getElementById('selectBox');
+// Toggle dropdown
+dropdownHeader.addEventListener('click', function(e) {
+  e.stopPropagation();
+  dropdownList.classList.toggle('show');
+  dropdownHeader.classList.toggle('active');
+});
+
+// Update selected services display
+function updateSelection() {
+  const selected = [];
+  checkboxes.forEach(checkbox => {
+    if (checkbox.checked) {
+      selected.push(checkbox.value);
+    }
+  });
   
-  if (checkboxes.length > 0) {
-    const services = Array.from(checkboxes).map(cb => cb.value);
-    servicesList.textContent = services.join(', ');
-    selectedDiv.classList.add('show');
-    selectBox.textContent = services.length + ' service(s) selected';
+  if (selected.length > 0) {
+    selectedText.textContent = selected.join(', ');
+    selectedDisplay.classList.add('show');
+    dropdownHeader.textContent = selected.length + ' service(s) selected';
   } else {
-    selectedDiv.classList.remove('show');
-    selectBox.textContent = 'Select Services';
+    selectedDisplay.classList.remove('show');
+    dropdownHeader.textContent = 'Select Services';
   }
 }
 
+// Add change event to each checkbox
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', updateSelection);
+  // Prevent dropdown from closing when clicking checkbox
+  checkbox.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+});
+
 // Close dropdown when clicking outside
-document.addEventListener('click', function(event) {
-  const dropdown = document.querySelector('.dropdown-checkbox');
-  const checkboxes = document.getElementById('checkboxes');
-  
-  if (!dropdown.contains(event.target)) {
-    checkboxes.style.display = 'none';
+document.addEventListener('click', function(e) {
+  if (!dropdownHeader.contains(e.target) && !dropdownList.contains(e.target)) {
+    dropdownList.classList.remove('show');
+    dropdownHeader.classList.remove('active');
   }
 });
 
-// Check if we're coming back from FormSubmit
-window.addEventListener('load', function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('success') === 'true') {
-    document.getElementById('successMessage').classList.add('show');
-    // Hide message after 5 seconds
-    setTimeout(function() {
-      document.getElementById('successMessage').classList.remove('show');
-    }, 5000);
-  }
+// Prevent dropdown from closing when clicking inside the list
+dropdownList.addEventListener('click', function(e) {
+  e.stopPropagation();
 });
 </script>
 </body>
