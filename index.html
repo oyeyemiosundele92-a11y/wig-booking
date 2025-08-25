@@ -53,6 +53,7 @@
     cursor: pointer;
     border-radius: 5px;
     background: #fff;
+    user-select: none;
   }
   .dropdown-checkbox .checkboxes {
     display: none;
@@ -64,14 +65,37 @@
     z-index: 1;
     max-height: 150px;
     overflow-y: auto;
+    margin-top: 5px;
   }
   .dropdown-checkbox .checkboxes label {
     display: block;
-    padding: 5px 10px;
+    padding: 8px 10px;
     cursor: pointer;
+    margin: 0;
+    font-weight: normal;
   }
   .dropdown-checkbox .checkboxes label:hover {
     background: #f1f1f1;
+  }
+  .dropdown-checkbox input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+  }
+  .selected-services {
+    margin-top: 10px;
+    padding: 10px;
+    background: #e8f5e9;
+    border-radius: 5px;
+    color: #2e7d32;
+    font-size: 14px;
+    display: none;
+  }
+  .selected-services.show {
+    display: block;
+  }
+  .selected-services strong {
+    display: block;
+    margin-bottom: 5px;
   }
   .social-buttons {
     margin-top: 20px;
@@ -90,13 +114,37 @@
   .instagram { background: #C13584; }
   .tiktok { background: #000000; }
   .social-buttons a:hover { opacity: 0.8; }
+  
+  /* Success message styling */
+  .success-message {
+    display: none;
+    background: #4CAF50;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .success-message.show {
+    display: block;
+  }
 </style>
 </head>
 <body>
 <div class="container">
   <h2>Wig Booking Form</h2>
+  
+  <!-- Success Message (hidden by default) -->
+  <div id="successMessage" class="success-message">
+    Thank you for your booking! We'll contact you soon.
+  </div>
+  
   <form action="https://formsubmit.co/oyeyemiosundele92@gmail.com" method="POST">
+    <!-- Hidden fields for FormSubmit configuration -->
     <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://oyeyemiosundele92-a11y.github.io/wig-booking/thankyou.html">
+    <input type="hidden" name="_subject" value="New Wig Booking Request!">
+    <input type="hidden" name="_autoresponse" value="Thank you for your booking! We have received your request and will get back to you within 24 hours.">
 
     <label for="name">Full Name</label>
     <input type="text" id="name" name="name" placeholder="Your full name" required>
@@ -109,13 +157,18 @@
 
     <label for="service">Service Type(s)</label>
     <div class="dropdown-checkbox">
-      <div class="select-box" onclick="toggleCheckboxes()">Select Services</div>
-      <div class="checkboxes">
-        <label><input type="checkbox" name="service[]" value="Wig Making"> Wig Making</label>
-        <label><input type="checkbox" name="service[]" value="Wig Revamp"> Wig Revamp</label>
-        <label><input type="checkbox" name="service[]" value="Wig Colouration"> Wig Colouration</label>
-        <label><input type="checkbox" name="service[]" value="Lace Repair"> Lace Repair</label>
+      <div class="select-box" id="selectBox" onclick="toggleCheckboxes()">Select Services</div>
+      <div class="checkboxes" id="checkboxes">
+        <label><input type="checkbox" name="service" value="Wig Making" onchange="updateSelectedServices()"> Wig Making</label>
+        <label><input type="checkbox" name="service" value="Wig Revamp" onchange="updateSelectedServices()"> Wig Revamp</label>
+        <label><input type="checkbox" name="service" value="Wig Colouration" onchange="updateSelectedServices()"> Wig Colouration</label>
+        <label><input type="checkbox" name="service" value="Lace Repair" onchange="updateSelectedServices()"> Lace Repair</label>
       </div>
+    </div>
+    <!-- This div shows selected services -->
+    <div id="selectedServices" class="selected-services">
+      <strong>Selected Services:</strong>
+      <span id="servicesList"></span>
     </div>
 
     <label for="date">Expected Delivery Date</label>
@@ -131,15 +184,54 @@
   <div class="social-buttons">
     <a class="whatsapp" href="https://wa.me/447459826515?text=Hi%20I%20would%20like%20to%20book%20a%20wig%20service" target="_blank">💬 WhatsApp</a>
     <a class="instagram" href="https://ig.me/m/Gremi_hairline" target="_blank">📸 Instagram</a>
-    <a class="tiktok" href="https://www.tiktok.com/@Gremi_hairline" target="_blank">🎵 TikTok</a>
+    <a class="tiktok" href="https://www.tiktok.com/@gremi_hairline" target="_blank">🎵 TikTok</a>
   </div>
 </div>
 
 <script>
 function toggleCheckboxes() {
-  const checkboxes = document.querySelector('.dropdown-checkbox .checkboxes');
+  const checkboxes = document.getElementById('checkboxes');
   checkboxes.style.display = checkboxes.style.display === 'block' ? 'none' : 'block';
 }
+
+function updateSelectedServices() {
+  const checkboxes = document.querySelectorAll('input[name="service"]:checked');
+  const selectedDiv = document.getElementById('selectedServices');
+  const servicesList = document.getElementById('servicesList');
+  const selectBox = document.getElementById('selectBox');
+  
+  if (checkboxes.length > 0) {
+    const services = Array.from(checkboxes).map(cb => cb.value);
+    servicesList.textContent = services.join(', ');
+    selectedDiv.classList.add('show');
+    selectBox.textContent = services.length + ' service(s) selected';
+  } else {
+    selectedDiv.classList.remove('show');
+    selectBox.textContent = 'Select Services';
+  }
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+  const dropdown = document.querySelector('.dropdown-checkbox');
+  const checkboxes = document.getElementById('checkboxes');
+  
+  if (!dropdown.contains(event.target)) {
+    checkboxes.style.display = 'none';
+  }
+});
+
+// Check if we're coming back from FormSubmit
+window.addEventListener('load', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('success') === 'true') {
+    document.getElementById('successMessage').classList.add('show');
+    // Hide message after 5 seconds
+    setTimeout(function() {
+      document.getElementById('successMessage').classList.remove('show');
+    }, 5000);
+  }
+});
 </script>
 </body>
 </html>
